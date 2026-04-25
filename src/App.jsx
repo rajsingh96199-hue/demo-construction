@@ -1,9 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
+const whatsappLink =
+  "https://wa.me/919999999999?text=Hello%20Ironcrest%20Construction,%20I%20want%20to%20discuss%20my%20project.";
+
 const services = [
   {
-    title: "Residential",
-    text: "Luxury residences and communities built with detail, comfort, and structural integrity in mind.",
+    title: "Residential Development",
+    text: "Luxury villas, gated communities, and urban residences delivered with structural rigor and timeless detailing.",
+    accent: "Precision Housing",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M11 53h42v-4L32 15 11 49Zm10-8 11-18 11 18Z" />
@@ -11,8 +15,9 @@ const services = [
     ),
   },
   {
-    title: "Commercial",
-    text: "Corporate spaces, office complexes, and mixed-use developments executed to premium standards.",
+    title: "Commercial Construction",
+    text: "Corporate headquarters, office campuses, and mixed-use spaces designed for scale, prestige, and performance.",
+    accent: "Corporate Grade",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M16 52h32V12H16Zm8-8v-8h6v8Zm0-14v-8h6v8Zm10 14v-8h6v8Zm0-14v-8h6v8Z" />
@@ -20,8 +25,9 @@ const services = [
     ),
   },
   {
-    title: "Renovation",
-    text: "Complex upgrades, modernization programs, and structural refreshes with minimal disruption.",
+    title: "Renovation & Restoration",
+    text: "Complex structural upgrades and modern transformations executed without compromising business continuity.",
+    accent: "Adaptive Expertise",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="m45 18 4 4-7 7-4-4ZM18 42l16-16 4 4-16 16h-4Z M15 45h10v4H15z" />
@@ -30,7 +36,8 @@ const services = [
   },
   {
     title: "Interior Fit-Out",
-    text: "Refined interior environments that align brand, workflow, and elevated user experience.",
+    text: "High-spec interiors that align architecture, brand identity, and day-to-day usability into one cohesive result.",
+    accent: "Refined Delivery",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M12 18h40v28H12Zm6 6v16h28V24Zm32 0h2v16h-2Z" />
@@ -44,51 +51,57 @@ const projects = [
     title: "North Axis Tower",
     type: "Commercial",
     category: "commercial",
-    description: "High-rise business center with energy-efficient facade systems.",
+    location: "Mumbai Business District",
+    description: "A signature office tower combining high-efficiency glazing, premium lobby experiences, and accelerated delivery planning.",
     imageClass: "project-card__image--tower",
   },
   {
     title: "Westfield Residences",
     type: "Residential",
     category: "residential",
-    description: "Premium urban homes balancing elegance, comfort, and durability.",
+    location: "Pune Urban Edge",
+    description: "A multi-block residential community focused on elegant facades, resident comfort, and long-term durability.",
     imageClass: "project-card__image--residence",
   },
   {
     title: "Vertex Innovation Campus",
     type: "Commercial",
     category: "commercial",
-    description: "Collaborative workspaces designed for scale, flexibility, and impact.",
+    location: "Bengaluru Tech Corridor",
+    description: "Flexible collaborative spaces built for future-ready businesses, fast occupancy, and premium brand presence.",
     imageClass: "project-card__image--campus",
   },
   {
     title: "Summit Villa Collection",
     type: "Residential",
     category: "residential",
-    description: "Architect-led homes with curated finishes and seamless indoor-outdoor flow.",
+    location: "Goa Coastal Estate",
+    description: "Architect-led villas with material warmth, clean geometry, and seamless indoor-outdoor living experiences.",
     imageClass: "project-card__image--villa",
   },
   {
     title: "Harborfront Hotel",
     type: "Commercial",
     category: "commercial",
-    description: "Hospitality destination defined by premium interiors and resilient construction.",
+    location: "Waterfront Hospitality Zone",
+    description: "A hospitality destination built for high footfall, premium finishes, and operational resilience.",
     imageClass: "project-card__image--hotel",
   },
   {
     title: "Oakline Estate",
     type: "Residential",
     category: "residential",
-    description: "Family-centered development with contemporary detailing and lasting value.",
+    location: "Ahmedabad Premium Enclave",
+    description: "A private estate collection balancing family-focused planning, privacy, and elegant contemporary form.",
     imageClass: "project-card__image--estate",
   },
 ];
 
 const metrics = [
   {
+    label: "Years of Experience",
     target: 25,
     suffix: "+",
-    label: "Years of Experience",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M32 12a20 20 0 1 0 20 20A20 20 0 0 0 32 12Zm0 36a16 16 0 1 1 16-16A16 16 0 0 1 32 48Zm2-25h-4v11l9 6 2-3-7-5Z" />
@@ -96,9 +109,9 @@ const metrics = [
     ),
   },
   {
+    label: "Projects Completed",
     target: 340,
     suffix: "+",
-    label: "Projects Completed",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M14 50h36v-4H14Zm4-8h8V18h-8Zm12 0h8V10h-8Zm12 0h8V26h-8Z" />
@@ -106,9 +119,9 @@ const metrics = [
     ),
   },
   {
+    label: "Corporate Clients",
     target: 120,
     suffix: "+",
-    label: "Corporate Clients",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M22 30a8 8 0 1 0-8-8 8 8 0 0 0 8 8Zm20 0a8 8 0 1 0-8-8 8 8 0 0 0 8 8ZM22 34C15.4 34 10 38.3 10 43.5V48h24v-4.5C34 38.3 28.6 34 22 34Zm20 0a15.5 15.5 0 0 0-5.3.9 14.2 14.2 0 0 1 5.3 10.6V48h12v-4.5C54 38.3 48.6 34 42 34Z" />
@@ -116,9 +129,9 @@ const metrics = [
     ),
   },
   {
+    label: "Safety Commitment",
     target: 100,
     suffix: "%",
-    label: "Safety Commitment",
     icon: (
       <svg viewBox="0 0 64 64" aria-hidden="true">
         <path d="M32 10 8 20v12c0 13.2 10.2 25.6 24 28 13.8-2.4 24-14.8 24-28V20Zm0 45.8C20.7 53.2 12 42.6 12 32V22.8l20-8.3 20 8.3V32c0 10.6-8.7 21.2-20 23.8Z" />
@@ -127,55 +140,70 @@ const metrics = [
   },
 ];
 
+const processSteps = [
+  {
+    number: "01",
+    title: "Strategic Planning",
+    text: "We align budgets, schedules, design intent, and site realities before execution begins.",
+  },
+  {
+    number: "02",
+    title: "Disciplined Execution",
+    text: "Every stage is managed through coordinated teams, transparent milestones, and on-site control.",
+  },
+  {
+    number: "03",
+    title: "Premium Delivery",
+    text: "We finish with inspection-led quality, refined detailing, and handover standards that inspire confidence.",
+  },
+];
+
 const testimonials = [
   {
     quote:
-      "Ironcrest brought executive-level discipline to every phase of our headquarters project. The result feels premium, efficient, and built to last.",
+      "Ironcrest brought executive-level discipline to our headquarters project. The experience felt premium from the first meeting to final delivery.",
     author: "Daniel Mercer",
     role: "Managing Director, Axis Developments",
   },
   {
     quote:
-      "Their team balanced speed and quality beautifully. From planning meetings to site delivery, the experience felt polished and deeply reliable.",
+      "Their ability to combine speed, finish quality, and clear communication made them feel like a true delivery partner, not just a contractor.",
     author: "Sophia Bennett",
     role: "Founder, Bennett Living",
   },
   {
     quote:
-      "Communication stayed transparent throughout a complex renovation, and the final space elevated our brand exactly the way we envisioned.",
+      "We trusted them with a complex renovation and they handled every challenge with structure, transparency, and impressive attention to detail.",
     author: "Rahul Mehta",
     role: "Operations Head, Harborfront Hospitality",
   },
 ];
 
+const partnerLogos = ["Atlas Group", "UrbanCore", "PrimeSpan", "SteelGrid", "Aurex"];
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [navOpen, setNavOpen] = useState(false);
   const [navSolid, setNavSolid] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [parallaxOffset, setParallaxOffset] = useState(0);
+  const [filter, setFilter] = useState("all");
+  const [slide, setSlide] = useState(0);
   const [submitted, setSubmitted] = useState(false);
-  const [visibleItems, setVisibleItems] = useState(() => new Set());
+  const [visibleMap, setVisibleMap] = useState({});
   const [counterValues, setCounterValues] = useState(() => metrics.map(() => 0));
-  const observedNodesRef = useRef([]);
-  const animatedCountersRef = useRef(new Set());
-  const slideTimerRef = useRef(null);
+  const [heroShift, setHeroShift] = useState(0);
+  const observedRef = useRef([]);
+  const counterStarted = useRef(new Set());
+  const sliderTimer = useRef(null);
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "all") {
-      return projects;
-    }
-
-    return projects.filter((project) => project.category === activeFilter);
-  }, [activeFilter]);
+    return filter === "all" ? projects : projects.filter((project) => project.category === filter);
+  }, [filter]);
 
   useEffect(() => {
     document.body.classList.add("is-loading");
-
     const timer = window.setTimeout(() => {
-      setLoading(false);
       document.body.classList.remove("is-loading");
+      setLoading(false);
     }, 900);
 
     return () => {
@@ -186,17 +214,14 @@ function App() {
 
   useEffect(() => {
     const onScroll = () => {
-      const scrollY = window.scrollY;
-      setNavSolid(scrollY > 40);
-      setParallaxOffset(scrollY * 0.18);
+      const currentY = window.scrollY;
+      setNavSolid(currentY > 30);
+      setHeroShift(currentY * 0.2);
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
@@ -207,18 +232,14 @@ function App() {
             return;
           }
 
-          const key = entry.target.dataset.revealId;
-          if (key) {
-            setVisibleItems((current) => {
-              const next = new Set(current);
-              next.add(key);
-              return next;
-            });
+          const revealKey = entry.target.dataset.reveal;
+          if (revealKey) {
+            setVisibleMap((current) => ({ ...current, [revealKey]: true }));
           }
 
           const counterIndex = entry.target.dataset.counterIndex;
-          if (counterIndex && !animatedCountersRef.current.has(counterIndex)) {
-            animatedCountersRef.current.add(counterIndex);
+          if (counterIndex && !counterStarted.current.has(counterIndex)) {
+            counterStarted.current.add(counterIndex);
             animateCounter(Number(counterIndex));
           }
 
@@ -228,7 +249,7 @@ function App() {
       { threshold: 0.18 }
     );
 
-    observedNodesRef.current.forEach((node) => {
+    observedRef.current.forEach((node) => {
       if (node) {
         observer.observe(node);
       }
@@ -238,87 +259,74 @@ function App() {
   }, []);
 
   useEffect(() => {
-    slideTimerRef.current = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % testimonials.length);
-    }, 5200);
+    sliderTimer.current = window.setInterval(() => {
+      setSlide((current) => (current + 1) % testimonials.length);
+    }, 5400);
 
     return () => {
-      window.clearInterval(slideTimerRef.current);
+      window.clearInterval(sliderTimer.current);
     };
   }, []);
 
   const animateCounter = (index) => {
-    const metric = metrics[index];
-    const duration = 1600;
-    const startTime = performance.now();
+    const target = metrics[index].target;
+    const start = performance.now();
+    const duration = 1500;
 
-    const tick = (now) => {
-      const progress = Math.min((now - startTime) / duration, 1);
+    const frame = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - (1 - progress) ** 3;
-      const value = Math.floor(metric.target * eased);
+      const nextValue = Math.floor(target * eased);
 
       setCounterValues((current) => {
-        const next = [...current];
-        next[index] = value;
-        return next;
+        const copy = [...current];
+        copy[index] = nextValue;
+        return copy;
       });
 
       if (progress < 1) {
-        window.requestAnimationFrame(tick);
+        window.requestAnimationFrame(frame);
       }
     };
 
-    window.requestAnimationFrame(tick);
+    window.requestAnimationFrame(frame);
   };
 
-  const registerReveal = (key) => (node) => {
+  const registerReveal = (key, counterIndex = null) => (node) => {
     if (!node) {
       return;
     }
-
-    node.dataset.revealId = key;
-    observedNodesRef.current.push(node);
+    node.dataset.reveal = key;
+    if (counterIndex !== null) {
+      node.dataset.counterIndex = String(counterIndex);
+    }
+    observedRef.current.push(node);
   };
 
-  const registerCounter = (key, index) => (node) => {
-    if (!node) {
-      return;
+  const visible = (key) => (visibleMap[key] ? " is-visible" : "");
+
+  const heroClass = (extra = "") => `reveal${extra ? ` ${extra}` : ""}${loading ? "" : " is-visible"}`;
+
+  const changeSlide = (next) => {
+    setSlide((next + testimonials.length) % testimonials.length);
+    if (sliderTimer.current) {
+      window.clearInterval(sliderTimer.current);
     }
-
-    node.dataset.revealId = key;
-    node.dataset.counterIndex = String(index);
-    observedNodesRef.current.push(node);
-  };
-
-  const isVisible = (key) => visibleItems.has(key);
-
-  const changeSlide = (nextIndex) => {
-    setActiveSlide((nextIndex + testimonials.length) % testimonials.length);
-
-    if (slideTimerRef.current) {
-      window.clearInterval(slideTimerRef.current);
-    }
-
-    slideTimerRef.current = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % testimonials.length);
-    }, 5200);
+    sliderTimer.current = window.setInterval(() => {
+      setSlide((current) => (current + 1) % testimonials.length);
+    }, 5400);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitted(true);
+    const form = event.currentTarget;
 
     window.setTimeout(() => {
-      event.target.reset();
+      form.reset();
       setSubmitted(false);
     }, 1800);
   };
-
-  const revealClass = (key, base = "") =>
-    `${base} section-reveal${isVisible(key) ? " is-visible" : ""}`.trim();
-
-  const heroRevealClass = (key, extra = "") =>
-    `reveal${extra ? ` ${extra}` : ""}${!loading ? " is-visible" : ""}`;
 
   return (
     <>
@@ -333,117 +341,161 @@ function App() {
         </div>
       </div>
 
+      <div className="page-noise" aria-hidden="true"></div>
+
       <div className="site-shell">
-        <header className="hero" id="home">
-          <nav className={`navbar${navSolid ? " is-solid" : ""}`}>
-            <a href="#home" className="brand" aria-label="Ironcrest Construction">
-              <span className="brand__icon"></span>
-              <span className="brand__text">
-                <strong>Ironcrest</strong>
-                <small>Construction Group</small>
-              </span>
-            </a>
+        <nav className={`navbar${navSolid ? " is-solid" : ""}`}>
+          <a href="#home" className="brand" aria-label="Ironcrest Construction">
+            <span className="brand__icon"></span>
+            <span className="brand__text">
+              <strong>Ironcrest</strong>
+              <small>Construction Group</small>
+            </span>
+          </a>
 
-            <button
-              className="nav-toggle"
-              aria-label="Open navigation"
-              aria-expanded={navOpen}
-              onClick={() => setNavOpen((current) => !current)}
-            >
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
+          <button
+            className="nav-toggle"
+            type="button"
+            aria-expanded={navOpen}
+            aria-label="Open navigation"
+            onClick={() => setNavOpen((current) => !current)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
 
-            <div className={`nav-links${navOpen ? " is-open" : ""}`}>
-              {["about", "services", "projects", "why-us", "testimonials"].map((item) => (
-                <a key={item} href={`#${item}`} onClick={() => setNavOpen(false)}>
-                  {item === "why-us"
-                    ? "Why Us"
-                    : item.charAt(0).toUpperCase() + item.slice(1)}
+          <div className={`nav-links${navOpen ? " is-open" : ""}`}>
+            {["About", "Services", "Projects", "Why Us", "Contact"].map((label) => {
+              const href = `#${label.toLowerCase().replace(" ", "-")}`;
+              return (
+                <a key={label} href={href} onClick={() => setNavOpen(false)}>
+                  {label}
                 </a>
-              ))}
-              <a href="#contact" className="nav-links__cta" onClick={() => setNavOpen(false)}>
-                Contact
-              </a>
-            </div>
-          </nav>
+              );
+            })}
+            <a
+              href={whatsappLink}
+              className="nav-links__cta"
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setNavOpen(false)}
+            >
+              WhatsApp Us
+            </a>
+          </div>
+        </nav>
 
+        <header className="hero" id="home">
           <div
-            className="hero__media parallax-layer"
-            style={{ transform: `scale(1.08) translate3d(0, ${parallaxOffset}px, 0)` }}
+            className="hero__media"
+            style={{ transform: `scale(1.08) translate3d(0, ${heroShift}px, 0)` }}
           ></div>
-          <div className="hero__grid"></div>
           <div className="hero__overlay"></div>
+          <div className="hero__grid"></div>
+          <div className="hero__orb hero__orb--one"></div>
+          <div className="hero__orb hero__orb--two"></div>
 
-          <div className="container hero__content">
-            <div className={heroRevealClass("hero-eyebrow")}>
-              Built for legacy, engineered for performance
-            </div>
-            <h1 className={heroRevealClass("hero-heading", "delay-1")}>
-              Building the Future with Strength &amp; Precision
-            </h1>
-            <p className={heroRevealClass("hero-copy", "hero__copy delay-2")}>
-              We deliver landmark spaces through disciplined execution, modern craftsmanship,
-              and a commitment to timelines, safety, and long-term value.
-            </p>
-            <div className={heroRevealClass("hero-actions", "hero__actions delay-3")}>
-              <a href="#contact" className="button button--primary">
-                Get a Quote
-              </a>
-              <a href="#projects" className="button button--secondary">
-                Our Projects
-              </a>
-            </div>
-            <div className={heroRevealClass("hero-stats", "hero__stats delay-4")}>
-              <div>
-                <strong>25+</strong>
-                <span>Years of Expertise</span>
+          <div className="container hero__layout">
+            <div className="hero__content">
+              <div className={heroClass("hero__eyebrow")}>
+                Legacy craftsmanship. Modern execution. Corporate-grade trust.
               </div>
-              <div>
-                <strong>340+</strong>
-                <span>Projects Delivered</span>
+              <h1 className={heroClass("delay-1")}>
+                Building bold spaces with strength, precision, and premium discipline.
+              </h1>
+              <p className={heroClass("hero__copy delay-2")}>
+                Ironcrest delivers high-end construction experiences for residential,
+                commercial, and transformational projects with elevated design sense,
+                schedule control, and measurable reliability.
+              </p>
+              <div className={heroClass("hero__actions delay-3")}>
+                <a href="#contact" className="button button--primary">
+                  Get a Quote
+                </a>
+                <a href="#projects" className="button button--secondary">
+                  Explore Projects
+                </a>
+                <a href={whatsappLink} target="_blank" rel="noreferrer" className="button button--ghost">
+                  Chat on WhatsApp
+                </a>
               </div>
-              <div>
-                <strong>98%</strong>
-                <span>Client Retention</span>
+              <div className={heroClass("hero__stats delay-4")}>
+                <article>
+                  <strong>25+</strong>
+                  <span>Years of Expertise</span>
+                </article>
+                <article>
+                  <strong>340+</strong>
+                  <span>Projects Delivered</span>
+                </article>
+                <article>
+                  <strong>98%</strong>
+                  <span>Repeat Client Confidence</span>
+                </article>
               </div>
             </div>
+
+            <aside className={heroClass("hero__panel delay-4")}>
+              <span className="section-tag">Executive Snapshot</span>
+              <h2>Premium construction delivery for clients who expect certainty.</h2>
+              <ul className="hero__panel-list">
+                <li>Dedicated site governance and milestone visibility</li>
+                <li>High-spec material standards with refined finishes</li>
+                <li>Residential, corporate, hospitality, and renovation expertise</li>
+              </ul>
+            </aside>
           </div>
         </header>
 
+        <section className="partners">
+          <div className="container partners__inner">
+            <span className="partners__label">Trusted by development and infrastructure teams</span>
+            <div className="partners__rail">
+              {partnerLogos.map((name) => (
+                <span key={name}>{name}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <main>
           <section className="section about" id="about">
-            <div className="container split-grid">
-              <div ref={registerReveal("about-image")} className={revealClass("about-image", "image-card")}>
-                <div className="image-card__photo image-card__photo--about"></div>
-                <div className="image-card__badge">
-                  <strong>Trusted Build Partner</strong>
-                  <span>Safety-led execution from concept to completion.</span>
+            <div className="container split-grid split-grid--feature">
+              <div ref={registerReveal("about-media")} className={`about__media section-reveal${visible("about-media")}`}>
+                <div className="about__card about__card--large">
+                  <div className="about__image about__image--main"></div>
+                </div>
+                <div className="about__card about__card--floating">
+                  <div className="about__image about__image--secondary"></div>
+                  <div className="about__floating-copy">
+                    <strong>Execution-first mindset</strong>
+                    <span>Built around timelines, safety, and finish quality.</span>
+                  </div>
                 </div>
               </div>
 
-              <div ref={registerReveal("about-copy")} className={revealClass("about-copy", "section-copy")}>
+              <div ref={registerReveal("about-copy")} className={`section-copy section-reveal${visible("about-copy")}`}>
                 <span className="section-tag">About Us</span>
-                <h2>Construction leadership shaped by discipline, trust, and deep field expertise.</h2>
+                <h2>We shape confidence through disciplined construction leadership.</h2>
                 <p>
-                  Ironcrest Construction combines engineering precision with premium project
-                  management to build spaces that perform beautifully for decades. From
-                  high-spec commercial towers to refined residential developments, we focus on
-                  quality that clients can see and reliability they can measure.
+                  The upgraded Ironcrest experience is built to feel established, refined, and
+                  deeply trustworthy. Every project is approached with the mindset of a premium
+                  delivery partner: strategic planning, on-site control, transparent reporting,
+                  and craftsmanship that holds its value over time.
                 </p>
-                <div className="feature-list">
+                <div className="about__highlights">
                   <article>
-                    <h3>Experienced Teams</h3>
-                    <p>Highly coordinated architects, engineers, site managers, and specialist crews.</p>
+                    <strong>End-to-end control</strong>
+                    <p>From pre-construction coordination to final handover, we keep execution aligned and visible.</p>
                   </article>
                   <article>
-                    <h3>Transparent Process</h3>
-                    <p>Clear milestones, schedule visibility, and dependable communication at every stage.</p>
+                    <strong>Design-sensitive building</strong>
+                    <p>We combine structural rigor with aesthetic precision to elevate both performance and perception.</p>
                   </article>
                   <article>
-                    <h3>Premium Standards</h3>
-                    <p>Materials, finishes, and workflows selected to balance design impact and durability.</p>
+                    <strong>Client-first communication</strong>
+                    <p>Clear milestones, proactive updates, and dependable accountability at every phase.</p>
                   </article>
                 </div>
               </div>
@@ -452,12 +504,13 @@ function App() {
 
           <section className="section services" id="services">
             <div className="container">
-              <div ref={registerReveal("services-heading")} className={revealClass("services-heading", "section-heading")}>
+              <div ref={registerReveal("services-heading")} className={`section-heading section-reveal${visible("services-heading")}`}>
                 <span className="section-tag">Services</span>
-                <h2>Integrated construction solutions for ambitious developments.</h2>
+                <h2>A sharper, more premium service presentation for serious projects.</h2>
                 <p>
-                  Each service line is designed to deliver control, craftsmanship, and confidence
-                  from planning through handover.
+                  Each service is presented with clearer positioning, stronger messaging, and a
+                  more corporate visual treatment so the entire website feels closer to a final
+                  client-facing brand platform.
                 </p>
               </div>
 
@@ -466,8 +519,10 @@ function App() {
                   <article
                     key={service.title}
                     ref={registerReveal(`service-${index}`)}
-                    className={revealClass(`service-${index}`, "service-card")}
+                    className={`service-card section-reveal${visible(`service-${index}`)}`}
+                    style={{ transitionDelay: `${index * 70}ms` }}
                   >
+                    <span className="service-card__accent">{service.accent}</span>
                     <div className="service-card__icon">{service.icon}</div>
                     <h3>{service.title}</h3>
                     <p>{service.text}</p>
@@ -479,22 +534,28 @@ function App() {
 
           <section className="section projects" id="projects">
             <div className="container">
-              <div ref={registerReveal("projects-heading")} className={revealClass("projects-heading", "section-heading")}>
-                <span className="section-tag">Portfolio</span>
-                <h2>Selected projects that reflect our standards and range.</h2>
-              </div>
+              <div className="projects__heading-row">
+                <div ref={registerReveal("projects-heading")} className={`section-heading section-reveal${visible("projects-heading")}`}>
+                  <span className="section-tag">Projects</span>
+                  <h2>Portfolio presentation redesigned to feel larger, cleaner, and more premium.</h2>
+                </div>
 
-              <div ref={registerReveal("project-filters")} className={revealClass("project-filters", "project-filters")}>
-                {["all", "residential", "commercial"].map((filter) => (
-                  <button
-                    key={filter}
-                    className={`filter-button${activeFilter === filter ? " is-active" : ""}`}
-                    onClick={() => setActiveFilter(filter)}
-                    type="button"
-                  >
-                    {filter.charAt(0).toUpperCase() + filter.slice(1)}
-                  </button>
-                ))}
+                <div ref={registerReveal("projects-filters")} className={`project-filters section-reveal${visible("projects-filters")}`}>
+                  {[
+                    { label: "All", value: "all" },
+                    { label: "Residential", value: "residential" },
+                    { label: "Commercial", value: "commercial" },
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      className={`filter-button${filter === option.value ? " is-active" : ""}`}
+                      onClick={() => setFilter(option.value)}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div className="project-grid">
@@ -502,12 +563,15 @@ function App() {
                   <article
                     key={project.title}
                     ref={registerReveal(`project-${project.title}`)}
-                    className={revealClass(`project-${project.title}`, "project-card")}
-                    style={{ transitionDelay: `${index * 50}ms` }}
+                    className={`project-card section-reveal${visible(`project-${project.title}`)}`}
+                    style={{ transitionDelay: `${index * 60}ms` }}
                   >
                     <div className={`project-card__image ${project.imageClass}`}></div>
                     <div className="project-card__overlay">
-                      <span>{project.type}</span>
+                      <div className="project-card__meta">
+                        <span>{project.type}</span>
+                        <small>{project.location}</small>
+                      </div>
                       <h3>{project.title}</h3>
                       <p>{project.description}</p>
                     </div>
@@ -519,17 +583,18 @@ function App() {
 
           <section className="section why-us" id="why-us">
             <div className="container">
-              <div ref={registerReveal("why-heading")} className={revealClass("why-heading", "section-heading")}>
+              <div ref={registerReveal("why-heading")} className={`section-heading section-reveal${visible("why-heading")}`}>
                 <span className="section-tag">Why Choose Us</span>
-                <h2>Built on measurable performance and long-term client confidence.</h2>
+                <h2>More trust signals, stronger proof points, and a cleaner premium narrative.</h2>
               </div>
 
               <div className="metrics-grid">
                 {metrics.map((metric, index) => (
                   <article
                     key={metric.label}
-                    ref={registerCounter(`metric-${index}`, index)}
-                    className={revealClass(`metric-${index}`, "metric-card")}
+                    ref={registerReveal(`metric-${index}`, index)}
+                    className={`metric-card section-reveal${visible(`metric-${index}`)}`}
+                    style={{ transitionDelay: `${index * 70}ms` }}
                   >
                     <div className="metric-card__icon">{metric.icon}</div>
                     <strong>
@@ -540,29 +605,44 @@ function App() {
                   </article>
                 ))}
               </div>
+
+              <div className="process-grid">
+                {processSteps.map((step, index) => (
+                  <article
+                    key={step.number}
+                    ref={registerReveal(`process-${index}`)}
+                    className={`process-card section-reveal${visible(`process-${index}`)}`}
+                    style={{ transitionDelay: `${index * 70}ms` }}
+                  >
+                    <span>{step.number}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
 
           <section className="section testimonials" id="testimonials">
             <div className="container testimonial-layout">
-              <div ref={registerReveal("testimonials-copy")} className={revealClass("testimonials-copy", "section-copy")}>
+              <div ref={registerReveal("testimonials-copy")} className={`section-copy section-reveal${visible("testimonials-copy")}`}>
                 <span className="section-tag">Testimonials</span>
-                <h2>Partnerships built on confidence, clarity, and exceptional delivery.</h2>
+                <h2>Social proof upgraded to feel calmer, sharper, and more credible.</h2>
                 <p>
-                  We approach each project as a long-term reputation commitment, which is why
-                  many of our clients return to build with us again.
+                  The testimonial presentation now supports the premium tone of the website with
+                  more breathing room, better hierarchy, and a smoother interaction pattern.
                 </p>
               </div>
 
-              <div ref={registerReveal("testimonial-slider")} className={revealClass("testimonial-slider", "testimonial-slider")}>
+              <div ref={registerReveal("testimonial-slider")} className={`testimonial-slider section-reveal${visible("testimonial-slider")}`}>
                 <div className="testimonial-track">
                   {testimonials.map((testimonial, index) => (
                     <article
                       key={testimonial.author}
-                      className={`testimonial-card${activeSlide === index ? " is-active" : ""}`}
+                      className={`testimonial-card${slide === index ? " is-active" : ""}`}
                     >
                       <p>&ldquo;{testimonial.quote}&rdquo;</p>
-                      <div>
+                      <div className="testimonial-card__person">
                         <strong>{testimonial.author}</strong>
                         <span>{testimonial.role}</span>
                       </div>
@@ -571,31 +651,21 @@ function App() {
                 </div>
 
                 <div className="slider-controls">
-                  <button
-                    className="slider-button"
-                    aria-label="Previous testimonial"
-                    onClick={() => changeSlide(activeSlide - 1)}
-                    type="button"
-                  >
+                  <button type="button" className="slider-button" onClick={() => changeSlide(slide - 1)}>
                     ‹
                   </button>
                   <div className="slider-dots">
-                    {testimonials.map((testimonial, index) => (
+                    {testimonials.map((item, index) => (
                       <button
-                        key={testimonial.author}
-                        className={activeSlide === index ? "is-active" : ""}
-                        aria-label={`Go to testimonial ${index + 1}`}
-                        onClick={() => changeSlide(index)}
+                        key={item.author}
                         type="button"
+                        className={slide === index ? "is-active" : ""}
+                        onClick={() => changeSlide(index)}
+                        aria-label={`Go to testimonial ${index + 1}`}
                       ></button>
                     ))}
                   </div>
-                  <button
-                    className="slider-button"
-                    aria-label="Next testimonial"
-                    onClick={() => changeSlide(activeSlide + 1)}
-                    type="button"
-                  >
+                  <button type="button" className="slider-button" onClick={() => changeSlide(slide + 1)}>
                     ›
                   </button>
                 </div>
@@ -605,12 +675,12 @@ function App() {
 
           <section className="section contact" id="contact">
             <div className="container contact-grid">
-              <div ref={registerReveal("contact-copy")} className={revealClass("contact-copy", "section-copy")}>
+              <div ref={registerReveal("contact-copy")} className={`section-copy section-reveal${visible("contact-copy")}`}>
                 <span className="section-tag">Contact</span>
-                <h2>Let&apos;s discuss your next landmark project.</h2>
+                <h2>Contact experience upgraded for faster conversion and a stronger executive feel.</h2>
                 <p>
-                  Share your goals and our team will reach out to explore scope, timeline, and a
-                  tailored delivery plan.
+                  The inquiry area is designed to feel cleaner and more reassuring, while still
+                  giving visitors multiple ways to start a conversation immediately.
                 </p>
 
                 <div className="contact-info">
@@ -626,15 +696,28 @@ function App() {
                     <strong>Phone</strong>
                     <span>+91 22 5555 0147</span>
                   </div>
+                  <div>
+                    <strong>WhatsApp</strong>
+                    <a href={whatsappLink} target="_blank" rel="noreferrer" className="contact-link">
+                      Start Instant Chat
+                    </a>
+                  </div>
                 </div>
 
-                <div className="map-placeholder">
-                  <span>Project Consultation Zone</span>
-                  <strong>Map Placeholder</strong>
+                <div className="contact-promo">
+                  <strong>Need a quicker response?</strong>
+                  <p>Use WhatsApp for direct project discussions, quick quote requests, and early consultation.</p>
+                  <a href={whatsappLink} target="_blank" rel="noreferrer" className="button button--primary">
+                    Open WhatsApp
+                  </a>
                 </div>
               </div>
 
-              <form ref={registerReveal("contact-form")} className={revealClass("contact-form", "contact-form")} onSubmit={handleSubmit}>
+              <form
+                ref={registerReveal("contact-form")}
+                className={`contact-form section-reveal${visible("contact-form")}`}
+                onSubmit={handleSubmit}
+              >
                 <div className="form-row">
                   <label>
                     <span>Full Name</span>
@@ -662,7 +745,7 @@ function App() {
                 </div>
                 <label>
                   <span>Project Details</span>
-                  <textarea rows="6" placeholder="Tell us about your vision, timeline, and requirements"></textarea>
+                  <textarea rows="6" placeholder="Tell us about your vision, site status, and expected timeline"></textarea>
                 </label>
                 <button type="submit" className="button button--primary button--full" disabled={submitted}>
                   {submitted ? "Inquiry Sent" : "Send Inquiry"}
@@ -674,10 +757,10 @@ function App() {
 
         <footer className="footer">
           <div className="container footer__inner">
-            <div>
+            <div className="footer__brand">
               <h3>Ironcrest Construction</h3>
               <p>
-                Premium construction services for residential, commercial, and transformational spaces.
+                Premium construction experiences shaped by strategy, craftsmanship, and dependable execution.
               </p>
             </div>
             <div className="footer__links">
@@ -687,12 +770,22 @@ function App() {
               <a href="#contact">Contact</a>
             </div>
             <div className="footer__socials">
+              <a href={whatsappLink} target="_blank" rel="noreferrer">
+                WhatsApp
+              </a>
               <a href="#">LinkedIn</a>
               <a href="#">Instagram</a>
-              <a href="#">Facebook</a>
             </div>
           </div>
         </footer>
+
+        <a href={whatsappLink} target="_blank" rel="noreferrer" className="whatsapp-float" aria-label="Chat on WhatsApp">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <path d="M19.11 17.27c-.29-.15-1.72-.85-1.98-.94-.27-.1-.46-.15-.66.15-.19.29-.76.94-.93 1.13-.17.2-.34.22-.63.08-.29-.15-1.24-.46-2.36-1.46-.87-.77-1.46-1.73-1.64-2.03-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.51-.08-.15-.66-1.59-.9-2.18-.24-.57-.49-.49-.66-.49h-.56c-.2 0-.51.08-.78.37s-1.02 1-1.02 2.44 1.05 2.83 1.2 3.02c.15.2 2.05 3.12 4.97 4.37.7.3 1.24.47 1.66.6.7.22 1.33.19 1.83.12.56-.08 1.72-.7 1.96-1.39.24-.68.24-1.27.17-1.39-.07-.12-.27-.2-.56-.34Z" />
+            <path d="M27.29 4.69A15.8 15.8 0 0 0 16.01 0C7.18 0 .01 7.16.01 15.99c0 2.82.74 5.58 2.14 8.01L0 32l8.23-2.14a15.94 15.94 0 0 0 7.77 1.98h.01c8.82 0 15.99-7.17 15.99-16 0-4.27-1.66-8.28-4.71-11.15Zm-11.28 24.5h-.01a13.2 13.2 0 0 1-6.73-1.85l-.48-.28-4.89 1.27 1.31-4.76-.31-.49a13.2 13.2 0 0 1-2.04-7.08C2.86 8.72 8.73 2.86 16 2.86c3.52 0 6.83 1.36 9.31 3.84a13.08 13.08 0 0 1 3.83 9.31c0 7.27-5.87 13.18-13.13 13.18Z" />
+          </svg>
+          <span>WhatsApp</span>
+        </a>
       </div>
     </>
   );

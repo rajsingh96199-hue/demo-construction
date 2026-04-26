@@ -1,24 +1,26 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
+const contactEmail = "rajsingh96199@gmail.com";
+const contactPhoneDisplay = "+91 86574 66854";
 const whatsappLink =
   "https://wa.me/918657466854?text=Hello%20Ironcrest%20Construction,%20I%20want%20to%20discuss%20my%20project.";
 
 const services = [
   {
     title: "Residential Development",
-    text: "Luxury villas, gated communities, and premium residences delivered with structural discipline and refined detailing.",
+    text: "Luxury villas, premium residences, and gated communities delivered with strong planning and refined finishing.",
   },
   {
     title: "Commercial Construction",
-    text: "Corporate offices, retail developments, and mixed-use spaces built for long-term performance and brand presence.",
+    text: "Corporate towers, office fit-outs, retail developments, and mixed-use projects built for long-term performance.",
   },
   {
     title: "Renovation & Restoration",
-    text: "Modernization, adaptive reuse, and structural upgrades executed with care, speed, and minimal disruption.",
+    text: "Modern upgrades and complex renovation programs managed with structure, speed, and minimal disruption.",
   },
   {
     title: "Interior Fit-Out",
-    text: "Elegant interior construction aligned with function, finishes, and a polished end-user experience.",
+    text: "Elegant interiors that align functionality, brand image, premium materiality, and long-term usability.",
   },
 ];
 
@@ -51,6 +53,20 @@ const projects = [
     location: "Goa Coastal Estate",
     imageClass: "project-card__image--villa",
   },
+  {
+    title: "Harborfront Hotel",
+    type: "Commercial",
+    category: "commercial",
+    location: "Waterfront Hospitality Zone",
+    imageClass: "project-card__image--hotel",
+  },
+  {
+    title: "Oakline Estate",
+    type: "Residential",
+    category: "residential",
+    location: "Ahmedabad Premium Enclave",
+    imageClass: "project-card__image--estate",
+  },
 ];
 
 const metrics = [
@@ -63,19 +79,19 @@ const metrics = [
 const testimonials = [
   {
     quote:
-      "Ironcrest handled our project with exceptional professionalism, fast communication, and premium-quality execution.",
+      "Ironcrest brought executive-level discipline to our project and the final result felt premium in every detail.",
     author: "Daniel Mercer",
     role: "Managing Director, Axis Developments",
   },
   {
     quote:
-      "The team balanced schedule, finish quality, and coordination beautifully. The result felt high-end from start to finish.",
+      "The team balanced speed, quality, and communication beautifully. It felt like working with a true delivery partner.",
     author: "Sophia Bennett",
     role: "Founder, Bennett Living",
   },
   {
     quote:
-      "They approached our renovation with structure and transparency. We always felt the project was in capable hands.",
+      "Their structured approach gave us confidence from the first meeting to final handover. We always knew where the project stood.",
     author: "Rahul Mehta",
     role: "Operations Head, Harborfront Hospitality",
   },
@@ -113,8 +129,9 @@ function App() {
 
   useEffect(() => {
     const onScroll = () => {
-      setNavSolid(window.scrollY > 30);
-      setHeroShift(window.scrollY * 0.18);
+      const scrollY = window.scrollY;
+      setNavSolid(scrollY > 30);
+      setHeroShift(scrollY * 0.18);
     };
 
     onScroll();
@@ -227,7 +244,7 @@ function App() {
 
       <div className="site-shell">
         <nav className={`navbar${navSolid ? " is-solid" : ""}`}>
-          <a href="#home" className="brand">
+          <a href="#home" className="brand" aria-label="Ironcrest Construction">
             <span className="brand__icon"></span>
             <span className="brand__text">
               <strong>Ironcrest</strong>
@@ -239,6 +256,7 @@ function App() {
             type="button"
             className="nav-toggle"
             aria-expanded={navOpen}
+            aria-label="Open navigation"
             onClick={() => setNavOpen((current) => !current)}
           >
             <span></span>
@@ -269,14 +287,14 @@ function App() {
           <div className="container hero__layout">
             <div className="hero__content">
               <div className={heroClass("hero__eyebrow")}>
-                Legacy craftsmanship. Modern execution. Trusted delivery.
+                Legacy craftsmanship. Modern execution. Corporate-grade trust.
               </div>
               <h1 className={heroClass("delay-1")}>
                 Building bold spaces with strength, precision, and premium discipline.
               </h1>
               <p className={heroClass("hero__copy delay-2")}>
-                Ironcrest creates high-end residential and commercial environments with
-                disciplined execution, professional reporting, and refined construction quality.
+                Ironcrest delivers high-end residential and commercial projects with disciplined
+                planning, on-site control, and polished construction outcomes that build trust instantly.
               </p>
               <div className={heroClass("hero__actions delay-3")}>
                 <a href="#contact" className="button button--primary">Get a Quote</a>
@@ -307,7 +325,7 @@ function App() {
               <ul className="hero__panel-list">
                 <li>Transparent progress and milestone visibility</li>
                 <li>Premium material and finish standards</li>
-                <li>Fast access through direct WhatsApp and form inquiries</li>
+                <li>Fast access through direct WhatsApp and email form inquiries</li>
               </ul>
             </aside>
           </div>
@@ -319,26 +337,26 @@ function App() {
               <div ref={registerReveal("about-media")} className={`about__media section-reveal${visible("about-media")}`}>
                 <div className="about__image about__image--main"></div>
               </div>
+
               <div ref={registerReveal("about-copy")} className={`section-copy section-reveal${visible("about-copy")}`}>
                 <span className="section-tag">About Us</span>
                 <h2>We build confidence through disciplined construction leadership.</h2>
                 <p>
-                  Every project is handled with a premium delivery mindset: thoughtful planning,
-                  active site control, clear communication, and finishes that leave a lasting
-                  impression on clients and end users.
+                  Every project is managed with a premium delivery mindset: strong planning,
+                  active site governance, clear updates, and finishes that strengthen the client’s brand.
                 </p>
                 <div className="about__highlights">
                   <article>
                     <strong>Experienced teams</strong>
-                    <p>Engineers, supervisors, and site teams aligned around consistency and control.</p>
+                    <p>Engineers, supervisors, and site teams aligned around consistency and execution quality.</p>
                   </article>
                   <article>
-                    <strong>Transparent execution</strong>
-                    <p>Clear updates, dependable schedules, and accountability through every phase.</p>
+                    <strong>Transparent process</strong>
+                    <p>Reliable updates, visible milestones, and accountability throughout the full project lifecycle.</p>
                   </article>
                   <article>
                     <strong>Premium standards</strong>
-                    <p>Quality materials, refined detailing, and durable outcomes that build trust instantly.</p>
+                    <p>Quality materials, sharp detailing, and durable outcomes that make an immediate impression.</p>
                   </article>
                 </div>
               </div>
@@ -379,6 +397,7 @@ function App() {
                   <button type="button" className={`filter-button${filter === "commercial" ? " is-active" : ""}`} onClick={() => setFilter("commercial")}>Commercial</button>
                 </div>
               </div>
+
               <div className="project-grid">
                 {filteredProjects.map((project, index) => (
                   <article
@@ -404,7 +423,7 @@ function App() {
             <div className="container">
               <div ref={registerReveal("why-heading")} className={`section-heading section-reveal${visible("why-heading")}`}>
                 <span className="section-tag">Why Choose Us</span>
-                <h2>Built on measurable performance and client confidence.</h2>
+                <h2>Built on measurable performance and long-term client confidence.</h2>
               </div>
               <div className="metrics-grid">
                 {metrics.map(([label, , suffix], index) => (
@@ -430,10 +449,11 @@ function App() {
                 <span className="section-tag">Testimonials</span>
                 <h2>Partnerships built on clarity, quality, and trust.</h2>
                 <p>
-                  We approach every project like a long-term reputation commitment, which is why
-                  our work is designed to impress both during execution and after completion.
+                  We approach every build like a long-term reputation commitment, and that mindset
+                  shapes the way we communicate, deliver, and finish.
                 </p>
               </div>
+
               <div ref={registerReveal("testimonials-slider")} className={`testimonial-slider section-reveal${visible("testimonials-slider")}`}>
                 <div className="testimonial-track">
                   {testimonials.map((item, index) => (
@@ -455,6 +475,7 @@ function App() {
                         type="button"
                         className={slide === index ? "is-active" : ""}
                         onClick={() => changeSlide(index)}
+                        aria-label={`Go to testimonial ${index + 1}`}
                       ></button>
                     ))}
                   </div>
@@ -470,17 +491,17 @@ function App() {
                 <span className="section-tag">Contact</span>
                 <h2>Share your project details and our team will respond quickly.</h2>
                 <p>
-                  Visitors can send an inquiry through the form or reach out instantly on WhatsApp
-                  for quick conversations, quote requests, or project consultations.
+                  Visitors can submit an inquiry through the contact form or start a direct
+                  WhatsApp conversation for faster project discussions.
                 </p>
                 <div className="contact-info">
                   <div>
                     <strong>Email</strong>
-                    <span>diwangroup1600@gmail.com</span>
+                    <span>{contactEmail}</span>
                   </div>
                   <div>
                     <strong>Phone</strong>
-                    <span>+91 86574 66854</span>
+                    <span>{contactPhoneDisplay}</span>
                   </div>
                   <div>
                     <strong>WhatsApp</strong>
@@ -491,7 +512,7 @@ function App() {
                 </div>
                 <div className="contact-promo">
                   <strong>Need a faster response?</strong>
-                  <p>Use WhatsApp for direct project discussion and faster follow-up.</p>
+                  <p>Use WhatsApp for direct project discussion and quick quote requests.</p>
                   <a href={whatsappLink} target="_blank" rel="noreferrer" className="button button--primary">
                     Open WhatsApp
                   </a>
@@ -501,7 +522,7 @@ function App() {
               <form
                 ref={registerReveal("contact-form")}
                 className={`contact-form section-reveal${visible("contact-form")}`}
-                action="https://formsubmit.co/diwangroup1600@gmail.com"
+                action={`https://formsubmit.co/${contactEmail}`}
                 method="POST"
               >
                 <input type="hidden" name="_subject" value="New Website Inquiry - Ironcrest Construction" />
@@ -567,7 +588,7 @@ function App() {
             </div>
             <div className="footer__socials">
               <a href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp</a>
-              <a href="mailto:diwangroup1600@gmail.com">Email</a>
+              <a href={`mailto:${contactEmail}`}>Email</a>
               <a href="tel:+918657466854">Call</a>
             </div>
           </div>

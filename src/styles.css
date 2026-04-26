@@ -6,7 +6,6 @@
   --muted: #adb4bf;
   --accent: #f4a62a;
   --accent-strong: #ff7a00;
-  --success: #25d366;
   --shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
   --container: min(1200px, calc(100vw - 2rem));
 }
@@ -296,7 +295,6 @@ textarea {
 
 .hero__copy,
 .section-copy p,
-.section-heading p,
 .contact-promo p,
 .footer p {
   color: var(--muted);
@@ -545,6 +543,14 @@ textarea {
 
 .project-card__image--villa {
   background-image: linear-gradient(180deg, transparent, rgba(11, 13, 16, 0.86)), url("https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=900&q=80");
+}
+
+.project-card__image--hotel {
+  background-image: linear-gradient(180deg, transparent, rgba(11, 13, 16, 0.86)), url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80");
+}
+
+.project-card__image--estate {
+  background-image: linear-gradient(180deg, transparent, rgba(11, 13, 16, 0.86)), url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80");
 }
 
 .project-card__overlay {
